@@ -3,473 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 Rifa Navideña - Annie Shoes</title>
+    <title>🎄 Rifas Annie Shoes</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --gold: #D4AF37;
             --gold-light: #F4E4BC;
             --dark: #0a0a0a;
             --dark-card: #141414;
-            --dark-lighter: #1a1a1a;
             --green: #00C853;
             --green-glow: rgba(0, 200, 83, 0.4);
             --red: #FF1744;
-            --red-muted: rgba(255, 23, 68, 0.3);
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background: var(--dark);
             min-height: 100vh;
             color: white;
-            overflow-x: hidden;
         }
-
-        /* Fondo con partículas */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background: 
-                radial-gradient(ellipse at top, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-        }
-
-        .floating-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
-            50% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
-        }
-
         .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1400px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        /* Header / Brand */
         .brand {
             text-align: center;
-            padding: 30px 0;
+            padding: 25px 0;
         }
-
         .brand-name {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+            letter-spacing: 6px;
         }
-
         .brand-tagline {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(255,255,255,0.5);
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
-        /* Main Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr 280px;
-            gap: 30px;
-            align-items: start;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 1100px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Prize Cards (laterales) */
-        .prize-card {
-            background: var(--dark-card);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .prize-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
-        }
-
-        .prize-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .prize-image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, var(--dark-lighter) 0%, var(--dark-card) 100%);
+        /* Tabs */
+        .tabs-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            gap: 10px;
+            margin-bottom: 25px;
         }
-
-        .prize-content {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .prize-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+        .tab-btn {
+            padding: 15px 40px;
+            border: 2px solid var(--gold);
+            background: transparent;
             color: var(--gold);
-            margin-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .tab-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
 
-        .prize-description {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.5;
-        }
-
-        /* Centro - Tablero principal */
-        .main-content {
+        /* Rifa Card */
+        .rifa-card {
             background: var(--dark-card);
             border-radius: 25px;
             padding: 30px;
             border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 60px rgba(0,0,0,0.5);
         }
-
-        /* Promo Header */
-        .promo-header {
+        .rifa-header {
             text-align: center;
             margin-bottom: 25px;
-            padding-bottom: 25px;
+            padding-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        .promo-badge {
+        .rifa-badge {
             display: inline-block;
             background: linear-gradient(135deg, #c41e3a, #ff6b6b);
-            padding: 8px 25px;
+            padding: 6px 20px;
             border-radius: 50px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            animation: pulse-badge 2s infinite;
+            margin-bottom: 12px;
         }
-
-        @keyframes pulse-badge {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(196, 30, 58, 0.4); }
-            50% { box-shadow: 0 0 0 15px rgba(196, 30, 58, 0); }
-        }
-
-        .promo-title {
+        .rifa-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.2;
+            font-size: 2rem;
+            margin-bottom: 8px;
         }
-
-        .promo-title span {
-            color: var(--gold);
-        }
-
-        .promo-prize {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
+        .rifa-title span { color: var(--gold); }
+        .rifa-prize {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
             margin-bottom: 15px;
         }
-
-        .promo-prize strong {
-            color: #4FC3F7;
-            font-weight: 600;
-        }
-
-        .promo-price {
+        .rifa-prize strong { color: #4FC3F7; }
+        .rifa-price {
             display: inline-block;
             background: linear-gradient(135deg, var(--gold), #FFD700);
             color: var(--dark);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            padding: 12px 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 30px rgba(212, 175, 55, 0.4);
+            padding: 10px 30px;
+            border-radius: 12px;
         }
 
         /* Info Pills */
         .info-pills {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-
         .pill {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 50px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 0.8rem;
         }
-
-        .pill-icon {
-            font-size: 1.1rem;
-        }
-
-        .pill-text {
-            color: rgba(255,255,255,0.8);
-        }
-
-        .pill-text strong {
-            color: var(--gold);
-        }
+        .pill strong { color: var(--gold); }
 
         /* Stats */
         .stats-bar {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin-bottom: 25px;
-            padding: 15px;
+            margin-bottom: 20px;
+            padding: 12px;
             background: rgba(255,255,255,0.03);
-            border-radius: 15px;
+            border-radius: 12px;
         }
-
-        .stat-item {
-            text-align: center;
-        }
-
+        .stat-item { text-align: center; }
         .stat-value {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
         }
-
-        .stat-value.available {
-            color: var(--green);
-            text-shadow: 0 0 20px var(--green-glow);
-        }
-
-        .stat-value.sold {
-            color: var(--red);
-        }
-
+        .stat-value.available { color: var(--green); }
+        .stat-value.sold { color: var(--red); }
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: rgba(255,255,255,0.5);
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* Tablero */
-        .board-section {
-            margin-bottom: 25px;
-        }
-
-        .board-title {
-            text-align: center;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
+        /* Board */
         .board {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 8px;
+            gap: 6px;
+            margin-bottom: 15px;
         }
-
         .ticket {
             aspect-ratio: 1;
-            border-radius: 12px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
-
         .ticket.available {
             background: linear-gradient(145deg, #1a3d1a, #0d260d);
             color: var(--green);
-            border-color: rgba(0, 200, 83, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.1);
+            border: 1px solid rgba(0, 200, 83, 0.3);
         }
-
         .ticket.available:hover {
-            transform: scale(1.15) rotate(-2deg);
+            transform: scale(1.15);
             border-color: var(--green);
-            box-shadow: 0 0 30px var(--green-glow);
+            box-shadow: 0 0 20px var(--green-glow);
             z-index: 10;
-            background: linear-gradient(145deg, #2d5a2d, #1a3d1a);
         }
-
-        .ticket.available::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 10px;
-            background: linear-gradient(135deg, transparent 40%, rgba(0,200,83,0.1) 100%);
-        }
-
         .ticket.sold {
             background: rgba(255, 23, 68, 0.1);
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255,255,255,0.2);
             cursor: not-allowed;
-            border-color: transparent;
         }
 
-        .ticket.sold::after {
-            content: '✕';
-            position: absolute;
-            font-size: 1.5rem;
-            color: rgba(255, 23, 68, 0.3);
-        }
-
-        /* Leyenda */
+        /* Legend */
         .legend {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
+            gap: 30px;
+            margin-bottom: 20px;
         }
-
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
+            gap: 8px;
+            font-size: 0.8rem;
             color: rgba(255,255,255,0.6);
         }
-
         .legend-dot {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border-radius: 4px;
         }
+        .legend-dot.available { background: var(--green); }
+        .legend-dot.sold { background: rgba(255, 23, 68, 0.4); }
 
-        .legend-dot.available {
-            background: var(--green);
-            box-shadow: 0 0 10px var(--green-glow);
-        }
-
-        .legend-dot.sold {
-            background: rgba(255, 23, 68, 0.3);
-        }
-
-        /* CTA Section */
-        .cta-section {
+        /* Footer */
+        .footer-info {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            margin-top: 20px;
         }
-
-        .cta-note {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 15px;
+        .footer-responsible { color: rgba(255,255,255,0.7); }
+        .footer-responsible strong { color: var(--gold); }
+        .footer-phone {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 5px 0;
         }
-
+        .footer-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            font-style: italic;
+        }
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
-            padding: 18px 40px;
-            border-radius: 60px;
+            padding: 12px 25px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.3);
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.4);
-        }
-
-        .whatsapp-btn svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Footer info */
-        .footer-info {
-            text-align: center;
-            margin-top: 30px;
-            padding: 25px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .footer-responsible {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 8px;
-        }
-
-        .footer-responsible strong {
-            color: var(--gold);
-        }
-
-        .footer-phone {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        .footer-note {
             margin-top: 15px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-            font-style: italic;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
         }
 
         /* Modal */
@@ -478,421 +264,266 @@
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
+        .modal-overlay.active { display: flex; }
         .modal {
             background: var(--dark-card);
-            border-radius: 25px;
-            padding: 40px;
-            max-width: 420px;
-            width: 100%;
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 400px;
+            width: 90%;
             text-align: center;
             border: 2px solid var(--gold);
-            box-shadow: 0 25px 80px rgba(212, 175, 55, 0.2);
-            animation: modal-in 0.3s ease;
         }
-
-        @keyframes modal-in {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-
         .modal-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--gold);
             margin-bottom: 10px;
         }
-
         .modal-number {
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 700;
             color: var(--green);
-            text-shadow: 0 0 40px var(--green-glow);
-            line-height: 1;
-            margin: 20px 0;
+            margin: 15px 0;
         }
-
-        .modal-text {
+        .modal-rifa {
+            font-size: 1rem;
             color: rgba(255,255,255,0.7);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 20px;
         }
-
         .modal-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
         }
-
         .modal-btn {
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 50px;
             border: none;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-
         .modal-btn.primary {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
         }
-
         .modal-btn.secondary {
             background: rgba(255,255,255,0.1);
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .modal-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .brand-name {
-                font-size: 2rem;
-                letter-spacing: 4px;
-            }
-
-            .main-layout {
-                gap: 20px;
-            }
-
-            .prize-card {
-                display: none;
-            }
-
-            .main-content {
-                padding: 20px;
-                border-radius: 20px;
-            }
-
-            .promo-title {
-                font-size: 1.8rem;
-            }
-
-            .promo-price {
-                font-size: 1.5rem;
-                padding: 10px 25px;
-            }
-
+        @media (max-width: 600px) {
+            .brand-name { font-size: 1.8rem; }
+            .tab-btn { padding: 12px 25px; font-size: 0.9rem; }
             .board {
                 grid-template-columns: repeat(5, 1fr);
-                gap: 6px;
+                gap: 5px;
             }
-
-            .ticket {
-                font-size: 0.9rem;
-                border-radius: 8px;
-            }
-
-            .stats-bar {
-                gap: 20px;
-            }
-
-            .stat-value {
-                font-size: 2rem;
-            }
-
-            .info-pills {
-                gap: 10px;
-            }
-
-            .pill {
-                padding: 8px 15px;
-                font-size: 0.75rem;
-            }
-
-            .modal {
-                padding: 30px 20px;
-            }
-
-            .modal-number {
-                font-size: 4rem;
-            }
-
-            .modal-buttons {
-                flex-direction: column;
-            }
-        }
-
-        /* Loading state */
-        .loading .ticket {
-            background: rgba(255,255,255,0.05);
-            animation: skeleton 1.5s infinite;
-        }
-
-        @keyframes skeleton {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+            .ticket { font-size: 0.8rem; }
+            .rifa-title { font-size: 1.5rem; }
+            .rifa-price { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-particles" id="particles"></div>
-
     <div class="container">
-        <!-- Brand Header -->
         <header class="brand">
-            <h1 class="brand-name">Annie Shoes</h1>
-            <p class="brand-tagline">Rifas Navideñas 2025</p>
+            <h1 class="brand-name">ANNIE SHOES</h1>
+            <p class="brand-tagline">RIFAS NAVIDEÑAS 2024</p>
         </header>
 
-        <!-- Main Layout -->
-        <div class="main-layout">
-            <!-- Left Prize Card -->
-            <aside class="prize-card">
-                <!-- IMAGEN 1: Cambia esta URL por tu imagen -->
-                <img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?w=400&q=80" alt="Regalos Navideños" class="prize-image">
-                <div class="prize-content">
-                    <h3 class="prize-title">Aire Acondicionado</h3>
-                    <p class="prize-description">Split 12,000 BTU. Enfría tu hogar esta navidad con este increíble premio.</p>
-                </div>
-            </aside>
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('aire')">❄️ Aire Acondicionado</button>
+            <button class="tab-btn" onclick="switchTab('tv')">📺 TV 43"</button>
+        </div>
 
-            <!-- Center - Main Board -->
-            <main class="main-content">
-                <div class="promo-header">
-                    <div class="promo-badge">🎄 Rifa Navideña 🎄</div>
-                    <h2 class="promo-title">¡Llévate un <span>Aire Acondicionado</span>!</h2>
-                    <p class="promo-prize">Modelo Split <strong>12,000 BTU</strong> • ¡No te lo pierdas!</p>
-                    <div class="promo-price">1.500 Bolívares</div>
+        <!-- RIFA AIRE -->
+        <div id="tab-aire" class="tab-content active">
+            <div class="rifa-card">
+                <div class="rifa-header">
+                    <div class="rifa-badge">🎄 RIFA NAVIDEÑA 🎄</div>
+                    <h2 class="rifa-title">¡Llévate un <span>Aire Acondicionado</span>!</h2>
+                    <p class="rifa-prize">Split <strong>12,000 BTU</strong> • ¡No te lo pierdas!</p>
+                    <div class="rifa-price">1.500 Bolívares</div>
                 </div>
-
                 <div class="info-pills">
-                    <div class="pill">
-                        <span class="pill-icon">🎰</span>
-                        <span class="pill-text"><strong>Lotería del Táchira</strong></span>
-                    </div>
-                    <div class="pill">
-                        <span class="pill-icon">🎯</span>
-                        <span class="pill-text">Terminal A • <strong>10:10pm</strong></span>
-                    </div>
-                    <div class="pill">
-                        <span class="pill-icon">💳</span>
-                        <span class="pill-text">Pago al <strong>reservar</strong></span>
-                    </div>
+                    <div class="pill">🎰 <strong>Lotería del Táchira</strong></div>
+                    <div class="pill">🎯 Terminal A • <strong>10:10pm</strong></div>
+                    <div class="pill">💳 Pago al <strong>reservar</strong></div>
                 </div>
-
                 <div class="stats-bar">
                     <div class="stat-item">
-                        <div class="stat-value available" id="available-count">--</div>
+                        <div class="stat-value available" id="available-aire">--</div>
                         <div class="stat-label">Disponibles</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value sold" id="sold-count">--</div>
+                        <div class="stat-value sold" id="sold-aire">--</div>
                         <div class="stat-label">Vendidos</div>
                     </div>
                 </div>
-
-                <div class="board-section">
-                    <h3 class="board-title">✨ Selecciona tu número de la suerte ✨</h3>
-                    <div class="board loading" id="board">
-                        <!-- Tickets generados por JS -->
-                    </div>
-                    <div class="legend">
-                        <div class="legend-item">
-                            <div class="legend-dot available"></div>
-                            <span>Disponible</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-dot sold"></div>
-                            <span>Vendido</span>
-                        </div>
-                    </div>
+                <div class="board" id="board-aire"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot available"></div><span>Disponible</span></div>
+                    <div class="legend-item"><div class="legend-dot sold"></div><span>Vendido</span></div>
                 </div>
-
-                <div class="cta-section">
-                    <p class="cta-note">¿Tienes dudas? Contáctanos directamente</p>
-                    <a href="https://wa.me/584247470612" target="_blank" class="whatsapp-btn">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                        </svg>
-                        Contactar por WhatsApp
-                    </a>
-                </div>
-
                 <div class="footer-info">
                     <p class="footer-responsible">Responsable: <strong>Ana Varela</strong></p>
                     <p class="footer-phone">📞 0424-7470612</p>
-                    <p class="footer-note">La fecha del sorteo será programada al vender la totalidad de los números</p>
+                    <a href="https://wa.me/584247470612" target="_blank" class="whatsapp-btn">💬 Contactar por WhatsApp</a>
+                    <p class="footer-note">Fecha del sorteo: al vender todos los números</p>
                 </div>
-            </main>
+            </div>
+        </div>
 
-            <!-- Right Prize Card -->
-            <aside class="prize-card">
-                <!-- IMAGEN 2: Cambia esta URL por tu imagen -->
-                <img src="https://images.pexels.com/photos/4792089/pexels-photo-4792089.jpeg?w=400" alt="Aire Acondicionado" class="prize-image">
-                <div class="prize-content">
-                    <h3 class="prize-title">¡Este Puede Ser Tuyo!</h3>
-                    <p class="prize-description">Participa con solo 1.500 Bs. ¡100 números disponibles!</p>
+        <!-- RIFA TV -->
+        <div id="tab-tv" class="tab-content">
+            <div class="rifa-card">
+                <div class="rifa-header">
+                    <div class="rifa-badge">⚡ RIFA FLASH ⚡</div>
+                    <h2 class="rifa-title">¡Llévate un <span>TV de 43"</span>!</h2>
+                    <p class="rifa-prize">Android TV • Google TV • <strong>4K HDR</strong></p>
+                    <div class="rifa-price">1.400 Bolívares</div>
                 </div>
-            </aside>
+                <div class="info-pills">
+                    <div class="pill">🎰 <strong>Lotería del Táchira</strong></div>
+                    <div class="pill">🎯 Terminal A • <strong>10:10pm</strong></div>
+                    <div class="pill">💳 Pago al <strong>reservar</strong></div>
+                </div>
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-value available" id="available-tv">--</div>
+                        <div class="stat-label">Disponibles</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value sold" id="sold-tv">--</div>
+                        <div class="stat-label">Vendidos</div>
+                    </div>
+                </div>
+                <div class="board" id="board-tv"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot available"></div><span>Disponible</span></div>
+                    <div class="legend-item"><div class="legend-dot sold"></div><span>Vendido</span></div>
+                </div>
+                <div class="footer-info">
+                    <p class="footer-responsible">Responsable: <strong>Ana Varela</strong></p>
+                    <p class="footer-phone">📞 0424-7470612</p>
+                    <a href="https://wa.me/584247470612" target="_blank" class="whatsapp-btn">💬 Contactar por WhatsApp</a>
+                    <p class="footer-note">Fecha del sorteo: al vender todos los números</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal">
-            <div class="modal-icon">🎟️</div>
-            <h3 class="modal-title">¡Excelente elección!</h3>
+            <h3 class="modal-title">🎟️ ¡Excelente elección!</h3>
             <div class="modal-number" id="modal-number">00</div>
-            <p class="modal-text">
-                Estás a un paso de participar por el<br>
-                <strong>Aire Acondicionado 12mil BTU</strong><br><br>
-                Te contactaremos por WhatsApp para confirmar tu reserva.
-            </p>
+            <p class="modal-rifa" id="modal-rifa">Rifa del Aire Acondicionado</p>
             <div class="modal-buttons">
-                <button class="modal-btn primary" id="btn-confirm">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
-                    Reservar por WhatsApp
-                </button>
+                <button class="modal-btn primary" id="btn-confirm">✓ Reservar por WhatsApp</button>
                 <button class="modal-btn secondary" id="btn-cancel">Cancelar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // CONFIGURACIÓN - PON TUS CLAVES AQUÍ
-        // ==========================================
         const SUPABASE_URL = 'https://ebamqroznywevnabppms.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImViYW1xcm96bnl3ZXZuYWJwcG1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2NDM5ODAsImV4cCI6MjA4MDIxOTk4MH0.DlZ1PuGoaE9Tzgfz4q-2C5scPRvl2QvlrnTRc2zo9j8';
-        const WHATSAPP_NUMBER = '584247470612';
-        // ==========================================
+        const WHATSAPP = '584247470612';
 
-        let tickets = [];
+        const rifasInfo = {
+            aire: { nombre: 'Aire Acondicionado 12mil BTU', precio: '1.500 Bs' },
+            tv: { nombre: 'TV 43" 4K Android TV', precio: '1.400 Bs' }
+        };
+
         let selectedNumber = null;
+        let selectedRifa = null;
 
-        // Crear partículas flotantes
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'floating-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
+        // Switch tabs
+        function switchTab(rifa) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${rifa}`).classList.add('active');
         }
 
-        // Cargar tickets desde Supabase
-        async function loadTickets() {
+        // Load tickets
+        async function loadTickets(rifa) {
             try {
                 const response = await fetch(
-                    `${SUPABASE_URL}/rest/v1/Tickets?select=*&order=numero`,
-                    {
-                        headers: {
-                            'apikey': SUPABASE_KEY,
-                            'Authorization': `Bearer ${SUPABASE_KEY}`
-                        }
-                    }
+                    `${SUPABASE_URL}/rest/v1/Tickets?Rifa=eq.${rifa}&order=numero`,
+                    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
                 );
-                tickets = await response.json();
-                document.getElementById('board').classList.remove('loading');
-                renderBoard();
-                updateStats();
+                const tickets = await response.json();
+                renderBoard(rifa, tickets);
+                updateStats(rifa, tickets);
             } catch (error) {
-                console.error('Error cargando tickets:', error);
-                document.getElementById('board').classList.remove('loading');
+                console.error(`Error cargando ${rifa}:`, error);
             }
         }
 
-        // Renderizar tablero
-        function renderBoard() {
-            const board = document.getElementById('board');
+        // Render board
+        function renderBoard(rifa, tickets) {
+            const board = document.getElementById(`board-${rifa}`);
             board.innerHTML = '';
-
             tickets.forEach(ticket => {
                 const div = document.createElement('div');
                 div.className = `ticket ${ticket.vendido ? 'sold' : 'available'}`;
                 div.textContent = ticket.numero.toString().padStart(2, '0');
-                
                 if (!ticket.vendido) {
-                    div.addEventListener('click', () => openModal(ticket.numero));
+                    div.addEventListener('click', () => openModal(ticket.numero, rifa));
                 }
-                
                 board.appendChild(div);
             });
         }
 
-        // Actualizar estadísticas
-        function updateStats() {
+        // Update stats
+        function updateStats(rifa, tickets) {
             const available = tickets.filter(t => !t.vendido).length;
             const sold = tickets.filter(t => t.vendido).length;
-            
-            document.getElementById('available-count').textContent = available;
-            document.getElementById('sold-count').textContent = sold;
+            document.getElementById(`available-${rifa}`).textContent = available;
+            document.getElementById(`sold-${rifa}`).textContent = sold;
         }
 
-        // Abrir modal
-        function openModal(numero) {
+        // Modal
+        function openModal(numero, rifa) {
             selectedNumber = numero;
+            selectedRifa = rifa;
             document.getElementById('modal-number').textContent = numero.toString().padStart(2, '0');
+            document.getElementById('modal-rifa').textContent = `Rifa: ${rifasInfo[rifa].nombre}`;
             document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
-        // Cerrar modal
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = '';
-            selectedNumber = null;
         }
 
-        // Confirmar reserva por WhatsApp
         function confirmReservation() {
-            const message = `🎄 ¡Hola! Me interesa la rifa navideña de Annie Shoes.\n\n🎟️ Quiero reservar el número: *${selectedNumber.toString().padStart(2, '0')}*\n\n🎁 Premio: Aire Acondicionado 12mil BTU\n💰 Monto: 1.500 Bolívares\n\n¡Gracias!`;
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            const info = rifasInfo[selectedRifa];
+            const msg = `🎄 ¡Hola! Me interesa la rifa de Annie Shoes.\n\n🎟️ Número: *${selectedNumber.toString().padStart(2, '0')}*\n🎁 Premio: ${info.nombre}\n💰 Precio: ${info.precio}\n\n¡Gracias!`;
+            window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
             closeModal();
         }
 
-        // Auto-refresh cada 30 segundos
-        function autoRefresh() {
-            setInterval(loadTickets, 30000);
-        }
-
-        // Event listeners
+        // Events
         document.getElementById('btn-cancel').addEventListener('click', closeModal);
         document.getElementById('btn-confirm').addEventListener('click', confirmReservation);
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') closeModal();
         });
 
-        // Cerrar modal con ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // Inicializar
-        createParticles();
-        loadTickets();
-        autoRefresh();
+        // Init
+        loadTickets('aire');
+        loadTickets('tv');
+        setInterval(() => { loadTickets('aire'); loadTickets('tv'); }, 30000);
     </script>
 </body>
 </html>
