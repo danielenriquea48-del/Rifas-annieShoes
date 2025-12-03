@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { 
+    display: flex; justify-content: center; align-items: center; 
+    min-height: 100vh; background: #000; font-family: sans-serif; 
+  }
+  
+  .ticket {
+    width: 600px; height: 300px;
+    background: linear-gradient(135deg, #8B0000 0%, #0f3d0f 100%);
+    border: 4px solid #FFD700; border-radius: 20px;
+    position: relative; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+  }
+
+  /* Círculos esquinas */
+  .corner { width: 30px; height: 30px; background: #000; border-radius: 50%; position: absolute; border: 4px solid #FFD700; z-index: 2;}
+  .tl { top: -20px; left: -20px; } .tr { top: -20px; right: -20px; }
+  .bl { bottom: -20px; left: -20px; } .br { bottom: -20px; right: -20px; }
+
+  .content {
+    text-align: center; padding: 20px; 
+    border: 2px dashed rgba(255, 215, 0, 0.4);
+    margin: 10px; height: 250px; border-radius: 15px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  h1 { color: #FFD700; margin: 0; text-shadow: 2px 2px #000; letter-spacing: 2px; }
+  p { color: white; margin: 5px; font-size: 14px; }
+  .footer { color: #ccc; font-size: 12px; border-top: 1px solid #555; padding-top: 10px; }
+  
+  /* ESPACIOS VACÍOS PARA N8N */
+  .espacio-numero { height: 80px; } 
+  .espacio-nombre { height: 40px; }
+</style>
+</head>
+<body>
+
+<div class="ticket">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+  
+  <div class="content">
+    <div>
+      <h1>🎄 GRAN RIFA NAVIDEÑA 🎄</h1>
+      <p>📺 Gana un Smart TV 43" - Android 4K</p>
+    </div>
+
+    <div class="espacio-numero"></div> 
+    <div class="espacio-nombre"></div>
+
+    <div class="footer">Sorteo: Lotería del Táchira | <strong>TICKET OFICIAL ✅</strong></div>
+  </div>
+</div>
+
+</body>
+</html>
